@@ -26,6 +26,7 @@ ext {
 }
 
 dependencies {
+	compile group: 'org.springframework', name: 'spring-web', version: '5.2.3.RELEASE'
 	implementation group: "org.springframework.boot", name: "spring-boot-starter-data-jpa", version: springVersion
 	implementation group: "org.springframework.boot", name: "spring-boot-starter-thymeleaf", version: springVersion
 	implementation group: "org.springframework.boot", name: "spring-boot-starter-web", version: springVersion
