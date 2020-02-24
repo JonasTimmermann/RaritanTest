@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+	<title>Authors</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<th:block th:fragment="content">
+	<div class="container">
+		<h2>Authors</h2>
+		<p class="alert alert-info">Manage all authors in the database. Add new authors with the button at the bottom.</p>
+
+		<table class="table table-striped table-hover" th:unless="${authors.isEmpty()}">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Number of books</th>
+					<th>Options</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="author : ${authors}">
+					<td th:text="${author.fullName}"></td>
+					<td th:text="${author.numberOfBooks}"></td>
+					<td>
+						<a th:href="@{'/author/' + ${author.id} + '/books'}" class="icon-link">
+							<img th:src="@{/images/octicons/book.svg}" title="Books"/>
+						</a>
+						<a th:href="@{'/author/' + ${author.id} + '/edit'}" class="icon-link">
+							<img th:src="@{/images/octicons/pencil.svg}" title="Edit"/>
+						</a>
+						<a th:href="@{'/author/' + ${author.id} + '/delete'}" class="icon-link">
+							<img th:src="@{/images/octicons/trashcan.svg}" title="Delete"/>
+						</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p th:if="${authors.isEmpty()}">No authors found.</p>
+
+		<a th:href="@{authors/new}">
+			<button class="btn btn-success">Add author</button>
+		</a>
+	</div>
+	</th:block>
+</body>
+</html>

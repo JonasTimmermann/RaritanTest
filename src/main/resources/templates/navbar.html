@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
+
+<head>
+	<title>Navigation Bar</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-light" th:fragment="navbar">
+		<a class="navbar-brand" th:href="@{/}">
+			<img th:src="@{/images/se-logo.png}" height="30" alt="SE Logo"/>
+		</a>
+		<div class="navbar-nav">
+			<a class="nav-item nav-link" th:href="@{/search}">Search</a>
+			<th:block sec:authorize="isAuthenticated()">
+			<a class="nav-item nav-link" th:href="@{/books}">Books</a>
+			<a class="nav-item nav-link" th:href="@{/authors}">Authors</a>
+			<a class="nav-item nav-link" th:href="@{/genres}">Genres</a>
+			<!-- Logout must be performed as a POST request, i. e., via a form button.
+			     For visual consistency, we use a hidden form submitted by a link here. -->
+			<a class="nav-item nav-link" href="javascript:document.logoutForm.submit()">Logout</a>
+			<form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+				<input type="submit" value="Logout"/>
+			</form>
+			</th:block>
+			<th:block sec:authorize="!isAuthenticated()">
+			<a class="nav-item nav-link" th:href="@{/login}">Login</a>
+			</th:block>
+		</div>
+	</nav>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+	<title>Edit Author</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<th:block th:fragment="content">
+	<div class="container">
+		<h2>Edit Author Details</h2>
+			
+		<form action="#" th:action="@{'/author/' + *{id} + '/edit'}" th:object="${author}" method="post">
+
+			<div th:if="${#fields.hasAnyErrors()}">
+				<p class="alert alert-danger" role="alert" th:each="err : ${#fields.detailedErrors()}" th:text="${err.fieldName + ': ' + err.message}"></p>
+			</div>
+
+			<div class="form-group">
+				<label for="id">ID</label>
+				<input type="text" class="form-control" id="id" th:field="*{id}" disabled="disabled"/>
+			</div>
+			<div class="form-group">
+				<label for="forename">Forename</label>
+				<input type="text" class="form-control" id="forename" th:field="*{forename}" th:errorclass="is-invalid"/>
+			</div>
+			<div class="form-group">
+				<label for="surname">Surname</label>
+				<input type="text" class="form-control" id="surname" th:field="*{surname}" th:errorclass="is-invalid"/>
+			</div>
+			<button type="submit" class="btn btn-success">Save</button>
+		</form>
+	</div>
+	</th:block>
+</body>
+</html>

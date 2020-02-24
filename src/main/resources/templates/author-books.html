@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+	<title>Books</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<th:block th:fragment="content">
+	<div class="container">
+		<h2 th:text="${'Books by ' + author.fullName}"></h2>
+
+		<table class="table table-striped table-hover" th:unless="${author.numberOfBooks == 0}">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>ISBN</th>
+					<th>Price</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${author.books}">
+					<td th:text="${book.title}"></td>
+					<td th:text="${book.isbn}"></td>
+					<td th:text="${book.priceInEuro} + ' EUR'"></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p th:if="${author.numberOfBooks == 0}">No book found for this author.</p>
+
+	</div>
+	</th:block>
+</body>
+</html>

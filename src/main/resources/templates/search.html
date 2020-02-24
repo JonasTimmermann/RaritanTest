@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:include="layout :: page">
+
+<head>
+	<title>Search</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<th:block th:fragment="content">
+	<div class="container">
+		<h2>Search ISBN</h2>
+
+		<form action="#" th:action="@{'/search'}" method="post">
+			<div class="form-group">
+				<label for="isbn">ISBN</label>
+				<input type="text" class="form-control" name="isbn" th:value="${isbn}"/>
+			</div>
+			<button type="submit" class="btn btn-success">Search</button>
+		</form>
+	</div>
+
+	<div class="container" th:if="${books}">
+		<h2>Result</h2>
+
+		<table class="table table-striped table-hover" th:unless="${books.isEmpty()}">
+			<thead>
+				<tr>
+					<th>Title</th>
+					<th>Author</th>
+					<th>ISBN</th>
+					<th>Price</th>
+					<th>Genre</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="book : ${books}">
+					<td th:text="${book.title}"></td>
+					<td th:text="${book.author.fullName}"></td>
+					<td th:text="${book.isbn}"></td>
+					<td th:text="${book.priceInEuro} + ' EUR'"></td>
+					<td><th:block th:each="genre,iterStat : ${book.genres}" th:text="${genre.name + (iterStat.last ? '' : ', ')}"></th:block></td>
+				</tr>
+			</tbody>
+		</table>
+
+		<p th:if="${books.isEmpty() && isbnValid}">No book found for the given ISBN.</p>
+		<p th:if="${books.isEmpty() && !isbnValid}">No valid ISBN provided.</p>
+	</div>	
+	</th:block>
+</body>
+</html>

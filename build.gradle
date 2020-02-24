@@ -1,0 +1,68 @@
+plugins {
+ 	id "org.springframework.boot" version "2.2.4.RELEASE"
+	id "io.spring.dependency-management" version "1.0.9.RELEASE"
+    id "java"
+    id "application"
+    id "com.adarshr.test-logger" version "2.0.0"
+}
+
+group = "org.springframework.boot"
+version = "0.0.1-SNAPSHOT"
+
+repositories {
+    jcenter()
+}
+
+configurations {
+	// https://docs.spring.io/spring-boot/docs/current/reference/html/using-spring-boot.html#using-boot-devtools
+	developmentOnly
+	runtimeClasspath {
+		extendsFrom developmentOnly
+	}
+}
+
+ext {
+	springVersion = '2.2.4.RELEASE'
+}
+
+dependencies {
+	implementation group: "org.springframework.boot", name: "spring-boot-starter-data-jpa", version: springVersion
+	implementation group: "org.springframework.boot", name: "spring-boot-starter-thymeleaf", version: springVersion
+	implementation group: "org.springframework.boot", name: "spring-boot-starter-web", version: springVersion
+	implementation group: "org.springframework.boot", name: "spring-boot-starter-tomcat", version: springVersion
+	implementation group: "org.springframework.boot", name: "spring-boot-starter-security", version: springVersion
+	
+	implementation group: "com.h2database", name: "h2", version: "1.4.200"
+	
+	implementation group: "org.thymeleaf.extras", name: "thymeleaf-extras-springsecurity5", version: "3.0.4.RELEASE"
+	
+	implementation group: "org.webjars", name: "bootstrap", version: "4.3.1"
+	
+	implementation group: "javax.xml.bind", name: "jaxb-api", version: "2.3.1"	
+	
+	developmentOnly group: "org.springframework.boot", name: "spring-boot-devtools", version: springVersion
+			
+	testImplementation group: "org.springframework.boot", name: "spring-boot-starter-test", version: springVersion
+	testImplementation group: "org.springframework.security", name: "spring-security-test", version: "5.2.2.RELEASE"
+	
+	testImplementation group: "org.jbehave", name: "jbehave-spring", version: "4.6.1"
+	testImplementation group: "org.jbehave", name: "jbehave-core", version: "4.6.1"
+	testImplementation group: "org.jbehave.site", name: "jbehave-site-resources", version: "3.3.1"
+		
+	testImplementation "junit:junit:4.12"
+}
+
+// Define the main class for the "gradle run" task
+mainClassName = "de.sopro.SoproSpringDemoApplication"
+
+tasks.withType(JavaCompile) {
+    options.compilerArgs += "--enable-preview"
+}
+
+tasks.withType(Test) {
+    jvmArgs += "--enable-preview"
+}
+
+tasks.withType(JavaExec) {
+    jvmArgs += '--enable-preview'
+}
